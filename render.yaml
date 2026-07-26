@@ -1,0 +1,19 @@
+# Render Blueprint — автоматичне налаштування безкоштовного вебсервісу.
+# Render прочитає цей файл і сам створить сервіс. Ключ API-Football введеш
+# у веб-інтерфейсі (він позначений sync:false, тобто Render його спитає).
+services:
+  - type: web
+    name: footballvalue-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: FV_API_FOOTBALL_KEY
+        sync: false
+      - key: FV_API_FOOTBALL_HOST
+        value: apisports
+      - key: FV_API_FOOTBALL_SEASON
+        value: "0"
+      - key: PYTHON_VERSION
+        value: "3.11.9"
